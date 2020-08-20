@@ -12,10 +12,8 @@ const db = knex({
   client: 'pg',
   version: '8.3.2',
   connection: {
-    host : '127.0.0.1',
-    user : 'ralstonjosephs',
-    password : 'your_database_password',
-    database : 'smart-brain'
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
   }
 });
 
@@ -60,7 +58,7 @@ app.use(express.json());
 // }
 app.use(cors())
 app.get('/',(req,res)=>{
-	res.json(database.users);
+	res.json('it is working!');
 })
 
 app.post('/signin',(req,res) =>{signin.handleSignin(req,res,db,bcrypt)});
@@ -85,8 +83,9 @@ app.post('/imageurl',(req,res)=>{image.handleApiCall(req,res)});
 // bcrypt.compare("veggies", hash, function(err, res) {
     // res = false
 // });
-app.listen(3000,() =>{
-	console.log('app is running on port 3000');
+const PORT = process.env.PORT;
+app.listen(PORT||3000,() =>{
+	console.log(`app is running on port ${PORT}`);
 });
 
 /*
