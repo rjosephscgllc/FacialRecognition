@@ -62,11 +62,8 @@ class App extends Component {
   calculateFaceLocation = (data) => {
      const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
      const image = document.getElementById('inputImage');
-     // console.log('image',image);
      const width = Number(image.width);
      const height = Number(image.height);
-     // console.log('width',width);
-     // console.log('height',height);
      return {
          leftCol: clarifaiFace.left_col * width,
          topRow: clarifaiFace.top_row * height,
@@ -94,15 +91,6 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({imageUrl:this.state.input})
-  //  console.log('Click!')
-   /* this.setState((state)=>{
-           console.log('input',this.state.input)
-           return {imageUrl:this.state.input};
-         });*/
-
-    //758735ed87d846f481a42c9f0dcffc45
-    // console.log('imageUrl',this.state.imageUrl) 
-    // console.log('imageUrlinput',this.state.input) 
     
     fetch('https://safe-gorge-60310.herokuapp.com/imageurl',{
                method:'post',
@@ -129,7 +117,7 @@ class App extends Component {
       this.displayFaceBox(this.calculateFaceLocation(response))
     })  
     .catch(err=>console.log(err))   
-  //  app.models.predict(Clarifai.FACE_DETECT_MODEL,this.state.imageUrl).then(  
+   
   }
   render(){
     const { isSignedIn, box, imageUrl, route} = this.state;
